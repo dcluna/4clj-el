@@ -1,0 +1,9 @@
+* four-clj.el
+** Introduction
+   This is an Emacs minor mode aimed at Clojure beginners (much like
+   myself). You type M-x fetch-4clj-problem <RET> <problem-number> <RET> and
+   the mode takes care of the rest.
+
+   For a better experience, use [[https://github.com/jochu/clojure-mode][clojure-mode]] and [[https://github.com/technomancy/swank-clojure/][swank-clojure]].
+** TODO Installation
+   
