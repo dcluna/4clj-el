@@ -21,7 +21,8 @@
 *** 4clj-template-function
     The function that renders the template. Anything that receives a
     string with newline-separated tests and returns a string template will do.
-** \TODO
+** Todo
    Escape HTML in problem description.
+   
    Put the problem number in the buffer name (it erases the
    4clojure buffer contents).
