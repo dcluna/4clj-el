@@ -14,14 +14,14 @@
 (require '4-clj)
    #+END_SRC
 ** Configuration
-   1. 4clj-comment-string
-      Holds the comment prefix for description.
-   2. 4clj-buffer-name
-      4clojure buffer name. Defaults to 4clojure.
-   3. 4clj-template-function
-      The function that renders the template. Anything that receives a
-      string with newline-separated tests and returns a string template will do.
-** TODO
+*** 4clj-comment-string
+    Holds the comment prefix for description.
+*** 4clj-buffer-name
+    4clojure buffer name. Defaults to 4clojure.
+*** 4clj-template-function
+    The function that renders the template. Anything that receives a
+    string with newline-separated tests and returns a string template will do.
+** \TODO
    Escape HTML in problem description.
    Put the problem number in the buffer name (it erases the
    4clojure buffer contents).
