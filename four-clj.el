@@ -81,6 +81,6 @@
   (interactive "nProblem number:")
   (4clj-get-problem number))
 
-(provide '4-clj)
+(provide 'four-clj)
 
 ;;; four-clj.el ends here

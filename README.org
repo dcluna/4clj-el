@@ -11,7 +11,7 @@
    it:
    #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/4clj-el/")
-(require '4-clj)
+(require 'four-clj)
    #+END_SRC
 ** Configuration
 *** 4clj-comment-string
