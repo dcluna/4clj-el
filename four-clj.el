@@ -12,7 +12,7 @@
   "Holds the current 4clojure problem.")
 
 (defconst 4clj-default-callback
-  '4clj-parse-problem
+  '4clj-parse-and-display
   "The default callback function for use with 4clj-get-problem.")
 
 (defvar 4clj-comment-string ";;"
@@ -21,11 +21,14 @@
 (defvar 4clj-template-function '4clj-default-template
   "The template function.")
 
+(defvar 4clj-buffer-name "4clojure"
+  "Buffer name prefix.")
+
 ;;; Code:
 
 (defun 4clj-default-template (tests)
   "Returns the template as a string."
-  (concat "(let [__ \"Solution here\"]\n" tests "\n )"))
+  (concat "(let [__ \"Solution here\"]\n\t" tests "\n )"))
 
 (defun 4clj-get-problem (number &optional callback)
   "Retrieves the NUMBER 4clojure problem for use with CALLBACK."
@@ -40,10 +43,8 @@
   (let ((status-type (car status))
         (status-data (cdr status)))
     (cond ((equal :error status-type)
-           ;;(signal (car status-data) (cdr status-data))
            (message "Error fetching problem"))
           ((equal :redirect status-type)
-           ;;(error (concat "Redirected to " status-data))
            (message "Problem does not exist")))))
 
 (defun 4clj-parse-problem (status)
@@ -55,23 +56,30 @@
       (setq 4clj-current-problem (json-read-from-string (car kill-ring)))
     (4clj-fetch-error status)))
 
-(defun 4clj-insert-problem-template (test-vector)
-  "Inserts the TESTS inside `4clj-problem-template` and puts them in the current buffer."
-  ;; (let ((tests (mapconcat (lambda (str) str) test-vector "\n")))
-   ; (insert )
-  ))
-
 (defun make-4clj-buffer (name)
   "Makes a buffer called NAME populated with a 4clojure problem."
   (set-buffer (get-buffer-create name))
+  (erase-buffer)
   (let ((problem-description (cdr (assoc 'description 4clj-current-problem)))
         (problem-tests (cdr (assoc 'tests 4clj-current-problem))))
-    (insert (concat 4clj-comment-string problem-description))
+    (insert (concat 4clj-comment-string problem-description "\n\n"))
     (let* ((test-vector (cdr (assoc 'tests 4clj-current-problem)))
            (tests (mapconcat (lambda (str) str) test-vector "\n")))
-      (insert (4clj-template-function tests)))
-    (if (featurep 'clojure-mode)
-        (clojure-mode))))
+      (insert (funcall 4clj-template-function tests)))))
+
+(defun 4clj-parse-and-display (status)
+  (4clj-parse-problem status)
+  (if (null status)
+      (let ((buffer-name 4clj-buffer-name))
+        (make-4clj-buffer buffer-name)
+        (switch-to-buffer-other-window buffer-name)
+        (if (featurep 'clojure-mode)
+            (clojure-mode)))
+    (message "Something went terribly wrong.")))
+
+(defun 4clojure-problem (number)
+  (interactive "nProblem number:")
+  (4clj-get-problem number))
 
 (provide 'four-clj)
 
