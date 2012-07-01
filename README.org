@@ -1,9 +1,27 @@
 * four-clj.el
 ** Introduction
    This is an Emacs minor mode aimed at Clojure beginners (much like
-   myself). You type M-x fetch-4clj-problem <RET> <problem-number> <RET> and
+   myself). You type M-x 4clojure-problem <RET> <problem-number> <RET> and
    the mode takes care of the rest.
 
    For a better experience, use [[https://github.com/jochu/clojure-mode][clojure-mode]] and [[https://github.com/technomancy/swank-clojure/][swank-clojure]].
-** TODO Installation
-   
+** Installation
+   Download the file, put it somewhere in your load-path (~/.emacs.d,
+   for instance) and require
+   it:
+   #+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/4clj-el/")
+(require '4-clj)
+   #+END_SRC
+** Configuration
+   1. 4clj-comment-string
+      Holds the comment prefix for description.
+   2. 4clj-buffer-name
+      4clojure buffer name. Defaults to 4clojure.
+   3. 4clj-template-function
+      The function that renders the template. Anything that receives a
+      string with newline-separated tests and returns a string template will do.
+** TODO
+   Escape HTML in problem description.
+   Put the problem number in the buffer name (it erases the
+   4clojure buffer contents).
