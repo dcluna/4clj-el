@@ -51,9 +51,9 @@
   "Returns a parsed 4clojure problem fetched from URL-BUFFER in 4clj-current-problem."
   (next-line 8)
   (beginning-of-line)
-  (kill-line)
   (if (null status)
-      (setq 4clj-current-problem (json-read-from-string (car kill-ring)))
+      (let ((json-problem (buffer-substring (point) (point-max))))
+        (setq 4clj-current-problem (json-read-from-string json-problem)))
     (4clj-fetch-error status)))
 
 (defun make-4clj-buffer (name)
