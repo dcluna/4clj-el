@@ -28,7 +28,7 @@
 
 (defun 4clj-default-template (tests)
   "Returns the template as a string."
-  (concat "(let [__ \"Solution here\"]\n\t" tests "\n )"))
+  (concat "(let [__ \"Solution here\"]\n  (every? true?\n    [" tests "]\n ))"))
 
 (defun 4clj-get-problem (number &optional callback)
   "Retrieves the NUMBER 4clojure problem for use with CALLBACK."
