@@ -67,6 +67,13 @@
            (tests (mapconcat (lambda (str) str) test-vector "\n")))
       (insert (funcall 4clj-template-function tests)))))
 
+(defun adjust-4clj-buffer ()
+  (interactive)
+  (save-excursion
+    (mark-whole-buffer)
+    (indent-region (point-min) (point-max) nil)
+    (while (replace-regexp "" ""))))
+
 (defun 4clj-parse-and-display (status)
   (4clj-parse-problem status)
   (if (null status)
@@ -74,7 +81,8 @@
         (make-4clj-buffer buffer-name)
         (switch-to-buffer-other-window buffer-name)
         (if (featurep 'clojure-mode)
-            (clojure-mode)))
+            (clojure-mode))
+      (adjust-4clj-buffer))        
     (message "Something went terribly wrong.")))
 
 (defun 4clojure-problem (number)
